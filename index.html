@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="node_modules/hangul-js/hangul.js"></script>
+    <script>
+        function convert() {
+            input = document.getElementById('input');
+            result = document.getElementById('result');
+            disassembled = Hangul.disassemble(input.value);
+            for (let i = 0; i < disassembled.length - 2; i++) {
+                if (disassembled[i] == 'ㅗ' && disassembled[i+1] == 'ㅏ') {
+                    temp = disassembled[i+1];
+                    disassembled[i+1] = disassembled[i+2];
+                    disassembled[i+2] = temp;
+                }
+            }
+            result.value = Hangul.assemble(disassembled);
+        }
+    </script>
+</head>
+<body>
+    <textarea id="input"></textarea>
+    <input type="button" value="변환" id="btn" onclick='convert(); return false;'/>
+    <textarea id="result"></textarea>
+</body>
+</html>
